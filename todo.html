@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<script src="C:\Users\usuario\Desktop\Front end\awdAlianzaProJhordy\EjerciciosAngular\Ejercicio3\core\angular.min.js"></script>
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+<h2>Todos</h2>
+
+<form ng-submit="todoAdd()">
+    <input type="text" ng-model="todoInput" size="50" placeholder="Agregar" required> 
+    <input type="submit" value="Add New">
+</form>
+        <h2> {{todoInput}}</h2>
+<br>
+
+<div ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+</div>
+
+<p><button ng-click="remove()">Limpiar</button></p>
+
+<script>
+var app = angular.module('myApp', []); 
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+</script>
+
+</body>
+</html>
